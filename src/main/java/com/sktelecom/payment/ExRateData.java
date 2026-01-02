@@ -6,6 +6,6 @@ import java.util.Map;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public record ExRateDate(String result, Map<String, BigDecimal> rates) {
+public record ExRateData(String result, Map<String, BigDecimal> rates) {
 
 }
