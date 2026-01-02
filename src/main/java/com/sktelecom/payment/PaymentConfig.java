@@ -1,5 +1,8 @@
 package com.sktelecom.payment;
 
+import com.sktelecom.payment.api.ApiTemplate;
+import com.sktelecom.payment.api.ErApiExRateExtractor;
+import com.sktelecom.payment.api.SimpleApiExecutor;
 import com.sktelecom.payment.exrate.CachedExRateProvider;
 import com.sktelecom.payment.payment.ExRateProvider;
 import com.sktelecom.payment.exrate.WebApiExRateProvider;
@@ -18,8 +21,13 @@ public class PaymentConfig {
 	}
 
 	@Bean
+	public ApiTemplate apiTemplate() {
+		return new ApiTemplate(new SimpleApiExecutor(), new ErApiExRateExtractor());
+	}
+
+	@Bean
 	public ExRateProvider exRateProvider() {
-		return new WebApiExRateProvider();
+		return new WebApiExRateProvider(apiTemplate());
 	}
 
 	@Bean

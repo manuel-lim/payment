@@ -12,12 +12,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class WebApiExRateProvider implements ExRateProvider {
-	ApiTemplate apiTemplate = new ApiTemplate();
+	final ApiTemplate apiTemplate;
 
-	@Override
+    public WebApiExRateProvider(ApiTemplate apiTemplate) {
+        this.apiTemplate = apiTemplate;
+    }
+
+    @Override
 	public BigDecimal getExRate(String currency) {
         String url = "https://open.er-api.com/v6/latest/" + currency;
 
-		return apiTemplate.getExRate(url, new HttpClientApiExecutor(), new ErApiExRateExtractor());
+		return apiTemplate.getExRate(url);
 	}
 }
