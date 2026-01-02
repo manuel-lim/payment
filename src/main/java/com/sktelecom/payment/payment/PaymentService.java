@@ -1,6 +1,5 @@
 package com.sktelecom.payment.payment;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -16,7 +15,7 @@ public class PaymentService {
 		this.clock = clock;
 	}
 
-	public Payment prepare(Long orderId, String currency, BigDecimal foreignCurrencyAmount) throws IOException {
+	public Payment prepare(Long orderId, String currency, BigDecimal foreignCurrencyAmount) {
 		BigDecimal krw = exRateProvider.getExRate(currency);
 		return Payment.createPrepared(orderId, currency, foreignCurrencyAmount, krw, LocalDateTime.now(this.clock));  // data holder, data carrier
 

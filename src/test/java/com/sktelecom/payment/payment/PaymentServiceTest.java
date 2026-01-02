@@ -2,7 +2,6 @@ package com.sktelecom.payment.payment;
 
 import static java.math.BigDecimal.valueOf;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.Instant;
@@ -26,7 +25,7 @@ class PaymentServiceTest {
 
 	@Test
 	@DisplayName("prepare 메서드가 요구사항 3가지를 잘 충족했는지 검증")
-	void convertedAmount() throws IOException {
+	void convertedAmount() {
 		Payment payment = getPayment(valueOf(500), valueOf(5_000), this.clock), clock;
 		getPayment(valueOf(1000), valueOf(10_000), this.clock);
 		getPayment(valueOf(2000), valueOf(20_000), this.clock);
@@ -37,7 +36,7 @@ class PaymentServiceTest {
 	}
 
 	@Test
-	void validUntil() throws IOException {
+	void validUntil() {
 		PaymentService paymentService= new PaymentService(new ExRateProviderStub(valueOf(1000)), clock);
 		Payment payment = paymentService.prepare(1L, "USD", BigDecimal.TEN);
 		// valid until
@@ -48,7 +47,7 @@ class PaymentServiceTest {
 
 	}
 
-	private static @NonNull Payment getPayment(BigDecimal exRate, BigDecimal convertedAmount, Clock clock) throws IOException {
+	private static @NonNull Payment getPayment(BigDecimal exRate, BigDecimal convertedAmount, Clock clock) {
 		// 준비
 		PaymentService paymentService = new PaymentService(new ExRateProviderStub(exRate), clock);
 
